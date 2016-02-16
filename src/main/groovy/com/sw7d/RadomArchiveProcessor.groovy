@@ -7,7 +7,8 @@ class RadomArchiveProcessor {
     static main(args) {
         new File("archive").eachFile { File file ->
             if (file.name.endsWith("djvu")) {
-                println file.name
+                Command.run( "djvutxt archive/${file.name} archive/text/${file.name.split('\\.')[0]}.txt")
+                //println "djvutxt ${file.name} text/${file.name.split('\\.')[0]}.txt"
             }
 
         }

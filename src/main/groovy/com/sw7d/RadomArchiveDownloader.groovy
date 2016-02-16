@@ -8,7 +8,7 @@ class RadomArchiveDownloader {
 
         def errors = []
         def result
-        (3808..5000).each { index ->
+        (4243..6000).each { index ->
             try {
                 String location = parseLocation(Command.run("curl http://bc.mbpradom.pl/Content/${index}/ -v").err)
                 println index+"  "+location
@@ -19,7 +19,7 @@ class RadomArchiveDownloader {
             } catch (Exception e) {
                 e.printStackTrace()
                 println ">>>> Error: "+index +"  "+e.message
-                println result.err
+                println result?.err
                 errors << index
             }
         }
