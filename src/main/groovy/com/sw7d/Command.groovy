@@ -21,6 +21,8 @@ println "OUT:"
             result["retryLater"] = true
         } else if (result.err?.contains("Operation timed out")) {
             result["retryLater"] = true
+        } else if (result.err?.contains("503 Service Unavailable")) {
+            result["retryLater"] = true
         } else if (result.err?.contains("404 Not Found")) {
             result["moveOn"] = true
         }
