@@ -10,7 +10,20 @@ class Command {
         Map<String, String> result = [:]
         result["out"] = out.toString()
         result["err"] = err.toString()
-        def errors = result.err
+        println "Command: "+command
+println "OUT:"
+        println result.out
+        println "ERR:"
+        println result.err
+        if (result.err?.contains("Could not resolve host")) {
+            result["retryLater"] = true
+        } else if (result.err?.contains("Connection reset by peer")) {
+            result["retryLater"] = true
+        } else if (result.err?.contains("Operation timed out")) {
+            result["retryLater"] = true
+        } else if (result.err?.contains("404 Not Found")) {
+            result["moveOn"] = true
+        }
         return result
     }
 }
