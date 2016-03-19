@@ -45,7 +45,7 @@ class RadomDocumentConstructor {
             result.index_in_year = Integer.valueOf(chunks[2])
             result.series_index = Integer.valueOf(""+chunks[1]+chunks[2].padLeft(5,'0'))
             result.id = 'Życie Radomskie, rok: '+result.year+", nr. "+chunks[2]
-            result.file_name = "zycie_radomskie_"+result.year+"_"+result.index_in_year
+            result.file_name = (result.series_name).toLowerCase().replaceAll(" ","-")+"_"+result.year+"_"+result.index_in_year
             result.url_file_name = fileName - ".txt"
             result.original_file_extension = "djvu"
             //println result
@@ -76,7 +76,7 @@ class RadomDocumentConstructor {
             }
             result.series_index = Long.valueOf("" + result.year + "" + (result.index_in_year + "").padLeft(7, '0'))
             result.id = 'Życie Radomskie, rok: ' + result.year + ", nr. " + result.index_in_year
-            result.file_name = "zycie_radomskie_" + result.year + "_" + result.index_in_year
+            result.file_name = (result.series_name).toLowerCase().replaceAll(" ","-")+"_" + result.year + "_" + result.index_in_year
             result.url_file_name = fileName - ".txt"
             result.original_file_extension = "djvu"
             //println result
@@ -87,7 +87,7 @@ class RadomDocumentConstructor {
             result.index_in_year = Integer.valueOf( (fileName - ".txt").split("%20")[3])
             result.year = 1951
             result.id = result.series_name + ", rok "+result.year+", nr. "+result.index_in_year
-            result.file_name = result.series_name + "_"+result.year+"_"+result.index_in_year
+            result.file_name = (result.series_name).toLowerCase().replaceAll(" ","-") + "_"+result.year+"_"+result.index_in_year
             result.series_index = Long.valueOf(""+result.year+""+(result.index_in_year+"").padLeft(7,'0'))
             //println result
         } else if(fileName.toLowerCase().startsWith("%c5%bbycie%20radomskie%20")) { //%C5%BBycie%20Radomskie%201963-248.txt
@@ -98,7 +98,7 @@ class RadomDocumentConstructor {
             result.year = Integer.valueOf(chunks[0])
             result.index_in_year = Integer.valueOf(chunks[1])
             result.id = result.series_name + ", rok "+result.year+", nr. "+result.index_in_year
-            result.file_name = result.series_name + "_"+result.year+"_"+result.index_in_year
+            result.file_name = (result.series_name).toLowerCase().replaceAll(" ","-") + "_"+result.year+"_"+result.index_in_year
             result.series_index = Long.valueOf(""+result.year+""+(result.index_in_year+"").padLeft(7,'0'))
             //println result
         } else if(fileName.toLowerCase().startsWith("%C5%BBycie%20Radomskie,%20".toLowerCase())) { //%C5%BBycie%20Radomskie,%201967,%20nr%2086-.txt
@@ -109,9 +109,66 @@ class RadomDocumentConstructor {
             result.year = Integer.valueOf(chunks[1])
             result.index_in_year = Integer.valueOf((chunks[2]-"nr%20")- '-')
             result.id = result.series_name + ", rok "+result.year+", nr. "+result.index_in_year
-            result.file_name = result.series_name + "_"+result.year+"_"+result.index_in_year
+            result.file_name = (result.series_name).toLowerCase().replaceAll(" ","-") + "_"+result.year+"_"+result.index_in_year
             result.series_index = Long.valueOf(""+result.year+""+(result.index_in_year+"").padLeft(7,'0'))
             //println result
+        } else if (fileName.toLowerCase().startsWith("%C5%BBycie-".toLowerCase())) { //%C5%BBycie-1963-238.txt
+            result.series_name = 'Życie Radomskie'
+            result.url_file_name = fileName - ".txt"
+            result.original_file_extension = "djvu"
+            def chunks = (fileName - ".txt").split("-")
+            result.year = Integer.valueOf(chunks[1])
+            result.index_in_year = Integer.valueOf(chunks[2])
+            result.id = result.series_name + ", rok "+result.year+", nr. "+result.index_in_year
+            result.file_name = (result.series_name).toLowerCase().replaceAll(" ","-") + "_"+result.year+"_"+result.index_in_year
+            result.series_index = Long.valueOf(""+result.year+""+(result.index_in_year+"").padLeft(7,'0'))
+        } else if (fileName.toLowerCase().startsWith("195".toLowerCase())) { //1955-283.txt
+            result.series_name = 'Życie Radomskie'
+            result.url_file_name = fileName - ".txt"
+            result.original_file_extension = "djvu"
+            def chunks = (fileName - ".txt").split("-")
+            result.year = Integer.valueOf(chunks[0])
+            result.index_in_year = Integer.valueOf(chunks[1])
+            result.id = result.series_name + ", rok "+result.year+", nr. "+result.index_in_year
+            result.file_name = (result.series_name).toLowerCase().replaceAll(" ","-") + "_"+result.year+"_"+result.index_in_year
+            result.series_index = Long.valueOf(""+result.year+""+(result.index_in_year+"").padLeft(7,'0'))
+        } else if (fileName.toLowerCase().startsWith("C-5-".toLowerCase())) {//C-5-1940-1-0001-1.txt, C-5-1944-82a-0001-1.txt
+            result.series_name = 'Dziennik Radomski'
+            result.url_file_name = fileName - ".txt"
+            result.original_file_extension = "djvu"
+            def chunks = (fileName - ".txt").split("-")
+            result.year = Integer.valueOf(chunks[2])
+            if (chunks[3] == '82a') {
+                result.index_in_year = 500
+            } else {
+                result.index_in_year = Integer.valueOf(chunks[3])
+            }
+            result.id = result.series_name + ", rok "+result.year+", nr. "+result.index_in_year
+            result.file_name = (result.series_name).toLowerCase().replaceAll(" ","-") + "_"+result.year+"_"+result.index_in_year
+            result.series_index = Long.valueOf(""+result.year+""+(result.index_in_year+"").padLeft(7,'0'))
+            println result
+        } else if (fileName.toLowerCase().startsWith("C-6-".toLowerCase())) {//C-6-1944-1-0001-1.txt
+            result.series_name = 'Dziennik Radomski'
+            result.url_file_name = fileName - ".txt"
+            result.original_file_extension = "djvu"
+            def chunks = (fileName - ".txt").split("-")
+            result.year = Integer.valueOf(chunks[2])
+            result.index_in_year = Integer.valueOf(chunks[3])
+            result.id = result.series_name + ", rok "+result.year+", nr. "+result.index_in_year
+            result.file_name = (result.series_name).toLowerCase().replaceAll(" ","-") + "_"+result.year+"_"+result.index_in_year
+            result.series_index = Long.valueOf(""+result.year+""+(result.index_in_year+"").padLeft(7,'0'))
+            println result
+        } else if (fileName.toLowerCase().startsWith("C-4-".toLowerCase())) {//C-4-1946-1-0001-1.txt
+            result.series_name = 'Dziennik Powszechny'
+            result.url_file_name = fileName - ".txt"
+            result.original_file_extension = "djvu"
+            def chunks = (fileName - ".txt").split("-")
+            result.year = Integer.valueOf(chunks[2])
+            result.index_in_year = Integer.valueOf(chunks[3].split("_")[0])
+            result.id = result.series_name + ", rok "+result.year+", nr. "+result.index_in_year
+            result.file_name = (result.series_name).toLowerCase().replaceAll(" ","-") + "_"+result.year+"_"+result.index_in_year
+            result.series_index = Long.valueOf(""+result.year+""+(result.index_in_year+"").padLeft(7,'0'))
+            println result
         }
         return result
     }
