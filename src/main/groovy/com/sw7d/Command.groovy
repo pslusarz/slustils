@@ -10,11 +10,11 @@ class Command {
         Map<String, String> result = [:]
         result["out"] = out.toString()
         result["err"] = err.toString()
-        println "Command: "+command
-println "OUT:"
-        println result.out
-        println "ERR:"
-        println result.err
+//        println "Command: "+command
+//println "OUT:"
+//        println result.out
+//        println "ERR:"
+//        println result.err
         if (result.err?.contains("Could not resolve host")) {
             result["retryLater"] = true
         } else if (result.err?.contains("Connection reset by peer")) {
