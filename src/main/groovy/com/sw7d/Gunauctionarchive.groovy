@@ -13,7 +13,8 @@ class Gunauctionarchive {
         def radoms = new Vector<Long>()
 
         ExecutorService executor = Executors.newFixedThreadPool(numberOfThreads)
-
+//5802293
+        //(5802290..6000000).each {
         (1288000..14000000).each { //1253719 May 2, 2001
             executor.execute(new Runner(index: it, results: radoms))
 
@@ -42,15 +43,15 @@ class Runner implements Runnable {
     void run() {
         def result = Command.run("curl -v http://www.gunauction.com/buy/$index")
         String text = result.out.toLowerCase()
-        if ((text.contains('radom') || text.contains('radum') || text.contains('radon') || text.contains('random'))
-                && !(text.contains('mosin')) && !(text.contains('makarov'))
-                && !(text.contains('tantal')) && !(text.contains('tokarev'))
-                && !(text.contains('pps43'))
-                && !(text.contains('czak'))
-                && !(text.contains('bayonet'))
-                && !(text.contains('beryl'))
-                && !(text.contains('mag98'))
-                && !(text.contains('archer'))
+        if ((text.contains('radom') || text.contains('radum') || text.contains('radon'))
+//                && !(text.contains('mosin')) && !(text.contains('makarov'))
+//                && !(text.contains('tantal')) && !(text.contains('tokarev'))
+//                && !(text.contains('pps43'))
+//                && !(text.contains('czak'))
+//                && !(text.contains('bayonet'))
+//                && !(text.contains('beryl'))
+//                && !(text.contains('mag98'))
+//                && !(text.contains('archer'))
         ) {
             results << index
         }
